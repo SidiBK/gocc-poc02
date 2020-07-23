@@ -146,7 +146,7 @@ app.get('/', function (req, res, next) {
         });
 
         console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role);
-        /*
+        
         var Coralogix = require("coralogix-logger");
      
         // global confing for application name, private key, subsystem name 
@@ -169,7 +169,7 @@ app.get('/', function (req, res, next) {
             text:"log data"
         })
         // send log to coralogix 
-        logger.addLog(log);*/
+        logger.addLog(log);
 
 
     } else {
