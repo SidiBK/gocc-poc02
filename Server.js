@@ -147,6 +147,31 @@ app.get('/', function (req, res, next) {
 
         console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role);
 
+        var Coralogix = require("coralogix-logger");
+     
+        // global confing for application name, private key, subsystem name 
+        const config = new Coralogix.LoggerConfig({
+            applicationName:"node tester",
+            privateKey:"75489423-f6f6-f683-017e-c77a6ba47cc2",
+            subsystemName:"node tester sub",
+        });
+     
+        Coralogix.CoralogixLogger.configure(config);
+     
+        // create a new logger with category 
+        const logger = new Coralogix.CoralogixLogger("My Category");
+        
+        // create a log 
+        const log = new Coralogix.Log({
+            severity:Coralogix.Severity.info,
+            className:"className",
+            methodName:"methodName",
+            text:"log data"
+        })
+        // send log to coralogix 
+        logger.addLog(log);
+
+        
     } else {
         res.redirect(process.env.INSTANCE_URL + '/auth/login');
     }
