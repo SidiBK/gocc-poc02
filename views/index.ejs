@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1,IE=EmulateIE11" />
+<head>  
+  <title>
+    BPCE Timeline
+  </title>  
+</head>
+
+<body style="margin:0px">
+  <% if (display === 'TEST') { %>
+  <div id="outputParams">
+    <ul>
+      <li>persons: '<%= persons %>'</li>
+      <li>site: '<%= site %>'</li>
+      <li>role: '<%= role %>'</li>
+      <li>chart: '<%= chart %>'</li>
+      <li>frameh: '<%= frameh %>'</li>                    
+      <li>combo: '<%= combo %></li>      
+    </ul>
+  </div>
+  <% } %>
+
+  <% if (display === 'ON') { %>
+  <div id="inputParams">
+    <input type="hidden"  id="persons" name="persons" value="<%= persons %>">
+    <input type="hidden"  id="site" name="site" value="<%= site %>">
+    <input type="hidden"  id="role" name="role" value="<%= role %>"> 
+    <input type="hidden"  id="chart" name="chart" value="<%= chart %>">            
+    <input type="hidden"  id="frameh" name="frameh" value="<%= frameh %>">            
+    <input type="hidden"  id="combo" name="combo" value="<%= combo %>">
+  </div>
+  
+  <div id="AppContainer">
+  </div>
+  <% } %>
+</body>
+
+<script src="<%= instanceUrl %>/lightning/lightning.out.js"></script>
+
+<% if (display === 'ON') { %> 
+<script>    
+  var appName = "c:goccTimelineAppOut";      
+  
+  var persons = document.getElementById('persons').value;
+  var site = document.getElementById('site').value;
+  var role = document.getElementById('role').value;
+  var chart = document.getElementById('chart').value;
+  var frameh = document.getElementById('frameh').value;
+  var combo = document.getElementById('combo').value;
+
+  $Lightning.use(appName,
+    function () {
+      $Lightning.createComponent("c:goccTimelineGlobal", { 
+        persons: JSON.parse(persons),
+        site: site,
+        role: role,
+        chart: chart,
+        frameh: frameh,
+        combo: combo,
+      }, "AppContainer");
+    }, 
+    "<%= instanceUrl %>", 
+    "<%= accessToken %>"
+  );  
+</script>
+<% } %>
+</html>
