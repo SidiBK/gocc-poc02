@@ -6,6 +6,22 @@ const express = require('express'),
 
 let app = express();
 
+/**
+* Init Coralogix config
+*/
+var Coralogix = require("coralogix-logger");
+     
+// global confing for application name, private key, subsystem name 
+const config = new Coralogix.LoggerConfig({
+    applicationName:"gocc-poc02",
+    privateKey:"65e13c6e-3c47-3c63-c4fe-41d26a742f23",
+    subsystemName:"web",
+});
+
+Coralogix.CoralogixLogger.configure(config);
+
+
+
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
@@ -116,6 +132,17 @@ app.post('/', function (req, res, next) {
 
         console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role);
 
+        const logger = new Coralogix.CoralogixLogger("My Category");
+        
+        // create a log 
+        const log = new Coralogix.Log({
+            severity:Coralogix.Severity.info,
+            className:"className",
+            methodName:"methodName",
+            text:'gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role
+        })
+        // send log to coralogix 
+        logger.addLog(log);
 
     } else {
         res.redirect(process.env.INSTANCE_URL + '/auth/login');
@@ -147,16 +174,7 @@ app.get('/', function (req, res, next) {
 
         console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role);
         
-        var Coralogix = require("coralogix-logger");
-     
-        // global confing for application name, private key, subsystem name 
-        const config = new Coralogix.LoggerConfig({
-            applicationName:"gocc-poc02",
-            privateKey:"65e13c6e-3c47-3c63-c4fe-41d26a742f23",
-            subsystemName:"web",
-        });
-     
-        Coralogix.CoralogixLogger.configure(config);
+        
      
         // create a new logger with category 
         const logger = new Coralogix.CoralogixLogger("My Category");
@@ -166,7 +184,7 @@ app.get('/', function (req, res, next) {
             severity:Coralogix.Severity.info,
             className:"className",
             methodName:"methodName",
-            text:"log data TEST"
+            text:'gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role
         })
         // send log to coralogix 
         logger.addLog(log);
@@ -190,6 +208,17 @@ app.get('/timelineUrl', function (req, res, next) {
                 res.status(401);
                 res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
 
+                const logger = new Coralogix.CoralogixLogger("My Category");
+        
+                // create a log 
+                const log = new Coralogix.Log({
+                    severity:Coralogix.Severity.error,
+                    className:"className",
+                    methodName:"methodName",
+                    text:'gocc-poc02 ERROR 401 --> '+process.env.INSTANCE_URL
+                })
+                // send log to coralogix 
+                logger.addLog(log);
                 console.log('gocc-poc02 ERROR 401 --> '+process.env.INSTANCE_URL);
 
             } else {
@@ -219,6 +248,15 @@ app.get('/timelineUrl', function (req, res, next) {
             res.status(401);
             res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
 
+            // create a log 
+            const log = new Coralogix.Log({
+                severity:Coralogix.Severity.error,
+                className:"className",
+                methodName:"methodName",
+                text:'gocc-poc02 ERROR 401 --> '+process.env.INSTANCE_URL
+            })
+            // send log to coralogix 
+            logger.addLog(log);
             console.log('gocc-poc02 ERROR 401 --> '+process.env.INSTANCE_URL);
         }
     }
