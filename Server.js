@@ -113,6 +113,10 @@ app.post('/', function (req, res, next) {
             combo: req.body.combo || 0,
             display: process.env.DISPLAY_MODE            
         });
+
+        console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+persons+'-'+site+'-'+role);
+
+
     } else {
         res.redirect(process.env.INSTANCE_URL + '/auth/login');
     }
@@ -140,6 +144,9 @@ app.get('/', function (req, res, next) {
             combo: req.query.combo || 0,
             display: process.env.DISPLAY_MODE            
         });
+
+        console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+persons+'-'+site+'-'+role);
+
     } else {
         res.redirect(process.env.INSTANCE_URL + '/auth/login');
     }
@@ -157,6 +164,9 @@ app.get('/timelineUrl', function (req, res, next) {
             if (err) {
                 res.status(401);
                 res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
+
+                console.log('gocc-poc02 ERROR 401 --> '+process.env.INSTANCE_URL);
+
             } else {
                 req.session.accessToken = conn.accessToken;
                 req.session.refreshToken = conn.refreshToken;
@@ -183,6 +193,8 @@ app.get('/timelineUrl', function (req, res, next) {
         } else {
             res.status(401);
             res.send({'AuthUrl': process.env.INSTANCE_URL + '/auth/login'});
+
+            console.log('gocc-poc02 ERROR 401 --> '+process.env.INSTANCE_URL);
         }
     }
 });
