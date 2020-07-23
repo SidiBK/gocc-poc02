@@ -114,7 +114,7 @@ app.post('/', function (req, res, next) {
             display: process.env.DISPLAY_MODE            
         });
 
-        console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+persons+'-'+site+'-'+role);
+        console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role);
 
 
     } else {
@@ -145,7 +145,7 @@ app.get('/', function (req, res, next) {
             display: process.env.DISPLAY_MODE            
         });
 
-        console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+persons+'-'+site+'-'+role);
+        console.log('gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role);
 
     } else {
         res.redirect(process.env.INSTANCE_URL + '/auth/login');
