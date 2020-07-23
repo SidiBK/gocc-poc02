@@ -151,9 +151,9 @@ app.get('/', function (req, res, next) {
      
         // global confing for application name, private key, subsystem name 
         const config = new Coralogix.LoggerConfig({
-            applicationName:"node tester",
-            privateKey:"75489423-f6f6-f683-017e-c77a6ba47cc2",
-            subsystemName:"node tester sub",
+            applicationName:"gocc-poc2",
+            privateKey:"65e13c6e-3c47-3c63-c4fe-41d26a742f23",
+            subsystemName:"web",
         });
      
         Coralogix.CoralogixLogger.configure(config);
@@ -166,7 +166,7 @@ app.get('/', function (req, res, next) {
             severity:Coralogix.Severity.info,
             className:"className",
             methodName:"methodName",
-            text:"log data"
+            text:"log data TEST"
         })
         // send log to coralogix 
         logger.addLog(log);
