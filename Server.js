@@ -151,7 +151,7 @@ app.get('/', function (req, res, next) {
      
         // global confing for application name, private key, subsystem name 
         const config = new Coralogix.LoggerConfig({
-            applicationName:"gocc-poc2",
+            applicationName:"gocc-poc02",
             privateKey:"65e13c6e-3c47-3c63-c4fe-41d26a742f23",
             subsystemName:"web",
         });
