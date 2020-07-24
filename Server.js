@@ -81,6 +81,16 @@ app.get('/auth/callback', function (req, res) {
     let authorizationCode = req.query.code;
     conn.authorize(authorizationCode, function (err, userInfo) {
         if (err) {
+            // create a log 
+            const log = new Coralogix.Log({
+                severity:Coralogix.Severity.error,
+                className:"className",
+                methodName:"methodName",
+                text:'gocc-poc02 ERROR --> '+err
+            })
+            // send log to coralogix 
+            logger.addLog(log);
+
             return console.error(err)
         }
 
@@ -139,7 +149,7 @@ app.post('/', function (req, res, next) {
             severity:Coralogix.Severity.info,
             className:"className",
             methodName:"methodName",
-            text:'gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role
+            text:'gocc-poc02 POST --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role
         })
         // send log to coralogix 
         logger.addLog(log);
@@ -184,7 +194,7 @@ app.get('/', function (req, res, next) {
             severity:Coralogix.Severity.info,
             className:"className",
             methodName:"methodName",
-            text:'gocc-poc02 --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role
+            text:'gocc-poc02 GET --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role
         })
         // send log to coralogix 
         logger.addLog(log);
