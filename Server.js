@@ -86,7 +86,7 @@ app.get('/auth/callback', function (req, res) {
                 severity:Coralogix.Severity.error,
                 className:"className",
                 methodName:"methodName",
-                text:'gocc-poc02 ERROR --> '+err
+                text:'gocc-poc02 ERROR --> '+console.error(err)
             })
             // send log to coralogix 
             logger.addLog(log);
@@ -149,7 +149,7 @@ app.post('/', function (req, res, next) {
             severity:Coralogix.Severity.info,
             className:"className",
             methodName:"methodName",
-            text:'gocc-poc02 POST --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role
+            text:'gocc-poc02 POST --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role+'-'+req.body.chart
         })
         // send log to coralogix 
         logger.addLog(log);
@@ -194,7 +194,7 @@ app.get('/', function (req, res, next) {
             severity:Coralogix.Severity.info,
             className:"className",
             methodName:"methodName",
-            text:'gocc-poc02 GET --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role
+            text:'gocc-poc02 GET --> '+instanceUrl+'-'+accessToken+'-'+req.body.persons+'-'+req.body.site+'-'+req.body.role+'-'+req.body.chart
         })
         // send log to coralogix 
         logger.addLog(log);
