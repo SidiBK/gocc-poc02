@@ -215,7 +215,7 @@ app.get('/timelineUrl', function (req, res, next) {
                     severity:Coralogix.Severity.error,
                     className:"Error",
                     methodName:"conn.identity",
-                    text:process.env.INSTANCE_URL+'---'+'401 '+process.env.INSTANCE_URL
+                    text:process.env.INSTANCE_URL+'---'+'401 '+console.error(err)
                 })
                 // send log to coralogix 
                 logger.addLog(log);
@@ -252,7 +252,7 @@ app.get('/timelineUrl', function (req, res, next) {
                 severity:Coralogix.Severity.error,
                 className:"Error",
                 methodName:"Auth using Session",
-                text:process.env.INSTANCE_URL+'---'+'401 '+process.env.INSTANCE_URL
+                text:process.env.INSTANCE_URL+'---'+'401 '+console.error(err)
             })
             // send log to coralogix 
             logger.addLog(log);
